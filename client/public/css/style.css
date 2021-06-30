@@ -1,0 +1,196 @@
+*{
+  font-family: 'Poppins';
+  font-weight: 0;
+  font-size: 98%
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* End of react default CSS */
+
+.nav-collapse-link{
+  color: inherit !important;
+  text-decoration: none
+}
+
+.brand-font{
+  font-family: 'Monsieur La Doulaise', cursive;
+  font-size: 80px !important;
+  border-bottom: 1px solid #eec335
+}
+
+.brand-font-sm{
+  font-family: 'Monsieur La Doulaise', cursive;
+  border-bottom: 1px solid #eec335
+}
+
+.nav-collapse-link:hover{
+  color: #0e7f9e !important;
+}
+
+.custom-button-primary{
+  background-color: #eec335;
+  border-radius: 30px;
+  font-weight: 400;
+  border: none;
+}
+
+.jumbotron{
+  /* background-image: url('../images/3.jpg'); */
+  background-color: rgba(0, 0, 0, 0.753) ;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-blend-mode: soft-light;
+  height: 400px;
+  overflow: auto;
+}
+
+.bottom-align{
+  position: absolute;
+  /* top: 100%; */
+  bottom: 0;
+  /* transform: translateY(-100%); */
+}
+
+.jumbotron-text{
+  margin: auto 0;
+  vertical-align: middle;
+  padding: 30px 0
+}
+
+.image-close-button{
+  border: none;
+  background-color: rgba(0, 0, 0, 0.521) ;
+  /* Round button styles */
+  width: 50px;
+  height: 50px;
+  padding: 7px 10px;
+  border-radius: 25px;
+  font-size: 10px;
+  text-align: center;
+}
+
+.close-container{
+  display: block;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  /* left: 41%; */
+  top: 100%;
+  
+}
+
+.image-options{
+  background: rgba(0, 0, 0, 0.596);
+  border: none;
+  color: white;
+  /* Round button styles */
+  width: 50px;
+  height: 50px;
+  padding: 7px 10px;
+  border-radius: 25px;
+  font-size: 15px;
+  text-align: center;
+}
+.image{ 
+  cursor: pointer;
+}
+.clickable-part {
+  height: 100%;
+  width: 100%;
+}
+
+.border-50{
+  border-radius: 50px;
+}
+
+.custom-form-control{
+  border-radius: 30px !important;
+}
+
+.loading{
+  animation: loading-spin infinite 2s linear;
+}
+@keyframes loading-spin {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.button-loading{
+  height: 40px
+}
+
+.page-loading{
+  height: 75px
+}
+
+.invisible-button{
+  height: 100%;
+  width: 100%
+}
+
+.cursor-pointer{
+  cursor: pointer
+}
+
+.image-modal{
+  background-size: cover;
+  background-position: center;
+  height: 250px;
+  width: 100%;
+  border: none;
+  border-radius: 5px
+}
+
+.datepicker-container, 
+.datepicker-container > div.react-datepicker-wrapper, 
+.datepicker-container > div > div.react-datepicker__input-container
+.datepicker-container > div > div.react-datepicker__input-container input {
+   width: 100%;
+}
+
+/* .custom-date-form-control{
+  display: block!important;
+  width: 100%;
+} */
