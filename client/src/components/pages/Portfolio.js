@@ -42,13 +42,13 @@ const Portfolio = () => {
                 'Content-Type': 'application/json',
             }
         })
-        .then(res => {
+        .then(({data}) => {
             setFetching(false);
-            if(res.data.success && (res.data.data.length > 0)){
+            if(data.data.success && (data.data.data.length > 0)){
                 setFetchingError('');
-                setPhotos(res.data.data);
+                setPhotos(data.data.data);
             }else{
-                setFetchingError((res.data.data.length <= 0) ? `End of the list.` :res.data.message);
+                setFetchingError((data.data.data.length <= 0) ? `End of the list.` :data.data.message);
             }
         })
         .catch(err => {
