@@ -31,6 +31,7 @@ const Portfolio = () => {
         }
     }
 
+    // function to fetch photos
     const fetchPhotos = (pageNum, amountToFetch) => {
         setFetching(true);
 
@@ -52,10 +53,11 @@ const Portfolio = () => {
         })
         .catch(err => {
             setFetching(false);
-            setFetchingError(`Error caught on the client: ${err}`)
+            setFetchingError(`Client side error: ${err}`)
         })
     }
 
+    // function to handle delete
     const handleDelete = (id) => {
         setFetching(true);
         axios({
@@ -77,7 +79,7 @@ const Portfolio = () => {
         })
         .catch(err => {
             setFetching(false);
-            setFetchingError(`Error caught on the client: ${err}`)
+            setFetchingError(`Client side error: ${err}`)
         })
     }
 

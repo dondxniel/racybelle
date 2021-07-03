@@ -227,7 +227,7 @@ const BookAppointmentForm = () => {
             <Form.Group className = 'my-3 justify-content-center text-center'>
                 <button 
                     className = "custom-button-primary text-light p-3"
-                    disabled = {submitting?true:false}
+                    disabled = {(error !== '') ? true : (submitting?true:false)}
                 >
                     {submitting?
                         <Loading variant = "small" />
