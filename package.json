@@ -9,6 +9,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.14",
     "mv": "^2.1.1",
@@ -19,6 +20,6 @@
     "server": "nodemon index",
     "client": "cd client && yarn start",
     "app": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   }
 }

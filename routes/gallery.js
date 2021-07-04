@@ -46,54 +46,61 @@ router.post('/add-photo', auth, (req, res) => {
 // Route to add photos to the temp folder of the gallery so that the admin can see the image he/she selected.
 router.post('/add-photo-to-temp', auth, (req, res) => {
     const tempFolder = path.resolve(__dirname, '../client/public/images/temp');
-
+    // console.log(tempFolder);
     if(req.files !== null){
         const file = req.files.file;
         const file_new_name = `${Math.floor( Math.random() * 10000000000)}_${Math.floor( Math.random() * 10000000000)}_${file.name}`;
-
-        // Code to empty folder    
-        fs.readdir(tempFolder, (err, files) => {
-            if (err) {
-                res.json({
-                    success: false,
-                    message: process.env.ERROR_EMPTYING_TEMP
-                })
-                return;
-            }else{
-                files = files.filter(file => file !== 'default.png');
-                if(files.length > 0){
-                    let errInd = 0;
-                    for (const file of files) {
-                        fs.unlink(path.join(tempFolder, file), err => {
-                            if (err) {
-                                errInd = 1;
-                            }
-                        });
-                    }
-                    (errInd === 1) && res.json({
+        console.log();
+        if((file.mimetype.split('/')[0]) === 'image'){
+            // Code to empty folder    
+            fs.readdir(tempFolder, (err, files) => {
+                if (err) {
+                    res.json({
                         success: false,
                         message: process.env.ERROR_EMPTYING_TEMP
-                    });
-                }
-                file.mv(`${tempFolder}\\${file_new_name}`, err => {
-                    if(err) {        
-                        res.json({
+                    })
+                    return;
+                }else{
+                    files = files.filter(file => file !== 'default.png');
+                    if(files.length > 0){
+                        let errInd = 0;
+                        for (const file of files) {
+                            fs.unlink(path.join(tempFolder, file), err => {
+                                if (err) {
+                                    errInd = 1;
+                                }
+                            });
+                        }
+                        (errInd === 1) && res.json({
                             success: false,
-                            message: process.env.ERROR_MOVING_FILE
-                        })
-                        return;
-                    }else{
-                        res.json({
-                            success: true,
-                            data: {
-                                fileName: file_new_name
-                            }
-                        })
-                        return;
+                            message: process.env.ERROR_EMPTYING_TEMP
+                        });
                     }
-                })
-            } 
-        });
+                    file.mv(`${tempFolder}\\${file_new_name}`, err => {
+                        if(err) {        
+                            res.json({
+                                success: false,
+                                message: process.env.ERROR_MOVING_FILE
+                            })
+                            return;
+                        }else{
+                            res.json({
+                                success: true,
+                                data: {
+                                    fileName: file_new_name
+                                }
+                            })
+                            return;
+                        }
+                    })
+                } 
+            });
+        }else{
+            res.json({
+                success: false,
+                message: process.env.UNSUPPORTED_FILE_TYPE,
+            })
+        }
     }else{
         res.json({
             success: false,
