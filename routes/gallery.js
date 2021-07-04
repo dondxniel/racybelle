@@ -51,7 +51,7 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
         const file = req.files.file;
         const file_new_name = `${Math.floor( Math.random() * 10000000000)}_${Math.floor( Math.random() * 10000000000)}_${file.name}`;
         // console.log();
-        if((file.mimetype.split('/')[0]) === 'image'){
+        if(file.mimetype.split('/')[0] === 'image'){
             // Code to empty folder    
             fs.readdir(tempFolder, (err, files) => {
                 if (err) {
@@ -77,7 +77,6 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                         });
                     }
                     file.mv(path.join(tempFolder, file_new_name), err => {
-                        // file.mv(`${tempFolder}\\${file_new_name}`, err => {
                         if(err) {        
                             res.json({
                                 success: false,
