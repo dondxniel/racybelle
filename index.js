@@ -3,11 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-const session = require('express-session');
+// const session = require('express-session');
 const path = require('path');
 const authRoutes = require('./routes/auth');
 const appointmentsRoutes = require('./routes/appointments');
 const galleryRoutes = require('./routes/gallery');
+// const MongoStore = require("connect-mongo");
 
 // database connection 
 mongoose.connect(process.env.MONGO_URI, {
@@ -22,17 +23,17 @@ mongoose.connect(process.env.MONGO_URI, {
 // app variable declaration
 const app = express();
 
-app.use(session({
-    secret: 'street',
-    resave: true,
-    saveUninitialized: true,
-    proxy: true,
-    cookie: {
-        sameSite:'none',
-        secure:true
-    },
-    store: new MongoStore({ mongooseConnection: mongoose.connection },)
-}));
+// app.use(session({
+//     secret: 'street',
+//     resave: true,
+//     saveUninitialized: true,
+//     proxy: true,
+//     cookie: {
+//         sameSite:'none',
+//         secure:true
+//     },
+//     store: new MongoStore({ mongooseConnection: mongoose.connection },)
+// }));
 // express in-built middleware
 app.use(express.urlencoded());
 app.use(express.json());

@@ -12,12 +12,12 @@ router.post('/add-photo', auth, (req, res) => {
     // C:/Users/Daniel/Downloads/Vids/Programming Tutorials/photo.jpg
     const { url } = req.body;
     const image = new Photo({url});
-    console.log(url);
+    // console.log(url);
     const source = path.resolve(__dirname, `../client/public/images/temp/${url}`);
     const dest = path.resolve(__dirname, `../client/public/images/gallery/${url}`);
     mv(source, dest, err => {
         if(err){
-            // console.log(err)
+            console.log(err)
             res.json({
                 success: false,
                 message: process.env.MOVING_TEMP_TO_GALLERY_ERROR,
@@ -46,11 +46,11 @@ router.post('/add-photo', auth, (req, res) => {
 // Route to add photos to the temp folder of the gallery so that the admin can see the image he/she selected.
 router.post('/add-photo-to-temp', auth, (req, res) => {
     const tempFolder = path.resolve(__dirname, '../client/public/images/temp');
-    // console.log(tempFolder);
+    console.log(tempFolder);
     if(req.files !== null){
         const file = req.files.file;
         const file_new_name = `${Math.floor( Math.random() * 10000000000)}_${Math.floor( Math.random() * 10000000000)}_${file.name}`;
-        console.log();
+        // console.log();
         if((file.mimetype.split('/')[0]) === 'image'){
             // Code to empty folder    
             fs.readdir(tempFolder, (err, files) => {
@@ -76,7 +76,8 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                             message: process.env.ERROR_EMPTYING_TEMP
                         });
                     }
-                    file.mv(`${tempFolder}\\${file_new_name}`, err => {
+                    file.mv(path.join(tempFolder, file_new_name), err => {
+                        // file.mv(`${tempFolder}\\${file_new_name}`, err => {
                         if(err) {        
                             res.json({
                                 success: false,
@@ -144,11 +145,11 @@ router.delete('/delete-photo/:id', auth, (req, res) => {
 
     Photo.findByIdAndRemove(id)        
     .then((photo) => {
-        console.log(photo)
-        console.log(tempFolder)
+        // console.log(photo)
+        // console.log(tempFolder)
         fs.unlink(path.resolve(tempFolder, photo.url), err => {
             if (err) {
-                console.log(err)
+                // console.log(err)
                 res.json({
                     success: false,
                     message: "Failed to delete from storage.",

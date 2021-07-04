@@ -42,6 +42,10 @@ const NavigationBar = () => {
                 <Nav.Link href = "/book-appointment" className = "navcollapse-link text-default custom-button-primary text-light">Book Appointment</Nav.Link>
             </Navbar>
             }
+            <Navbar>
+                
+                <h6>{cookies['userToken']}</h6>
+            </Navbar>
         </>
     )
 }

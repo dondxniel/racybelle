@@ -71,18 +71,18 @@ const LoginForm = () => {
             setLoading(false);
             setErrorMessage("Finish filling the form before submitting.")
         }
+        
     }
 
     return(
         <div>
-            
             <Nav.Link href = "/" onClick = {handleClickLink} className = "nav-collapse-link text-default">Login</Nav.Link>
 
             <Modal
                 show = {modalShow}
                 onHide = {handleHide}
                 centered
-            >
+                >
                 <Modal.Header >
                     <Modal.Title id="contained-modal-title-vcenter">
                         Login
