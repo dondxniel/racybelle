@@ -76,7 +76,8 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                             message: process.env.ERROR_EMPTYING_TEMP
                         });
                     }
-                    file.mv(path.join(tempFolder, file_new_name), err => {
+                    const dest = path.join(tempFolder, file_new_name); 
+                    file.mv(dest, err => {
                         if(err) {        
                             res.json({
                                 success: false,
@@ -87,7 +88,8 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                             res.json({
                                 success: true,
                                 data: {
-                                    fileName: file_new_name
+                                    fileName: file_new_name,
+                                    dest: dest
                                 }
                             })
                             return;

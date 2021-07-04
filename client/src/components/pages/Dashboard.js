@@ -51,6 +51,7 @@ const Dashboard = () => {
             if(res.data.success){
                 setPreview(res.data.data.fileName);
                 setFile(res.data.data.fileName);
+                console.log(res.data.data.dest)
             }else{
                 setError(res.data.message);
             }
