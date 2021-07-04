@@ -17,7 +17,7 @@ router.post('/add-photo', auth, (req, res) => {
     const dest = path.resolve(__dirname, `../client/public/images/gallery/${url}`);
     mv(source, dest, err => {
         if(err){
-            console.log(err)
+            // console.log(err)
             res.json({
                 success: false,
                 message: process.env.MOVING_TEMP_TO_GALLERY_ERROR,
@@ -45,8 +45,8 @@ router.post('/add-photo', auth, (req, res) => {
 
 // Route to add photos to the temp folder of the gallery so that the admin can see the image he/she selected.
 router.post('/add-photo-to-temp', auth, (req, res) => {
-    const tempFolder = path.resolve(__dirname, '../client/public/images/temp');
-    console.log(tempFolder);
+    const tempFolder = path.resolve(__dirname, path.join('../client', 'public', 'images', 'temp'));
+    // console.log(tempFolder);
     if(req.files !== null){
         const file = req.files.file;
         const file_new_name = `${Math.floor( Math.random() * 10000000000)}_${Math.floor( Math.random() * 10000000000)}_${file.name}`;
