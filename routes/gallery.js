@@ -66,9 +66,7 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                         let errInd = 0;
                         for (const file of files) {
                             fs.unlink(path.join(tempFolder, file), err => {
-                                if (err) {
-                                    errInd = 1;
-                                }
+                                if (err) errInd = 1;
                             });
                         }
                         (errInd === 1) && res.json({
