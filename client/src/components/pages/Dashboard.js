@@ -6,7 +6,13 @@ import AddPhotoTab from '../presentational/AddPhotoTab';
 import ViewBookingsTab from '../presentational/ViewBookingsTab';
 import { useCookies } from 'react-cookie';
 
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 const Dashboard = () => {
+    const history = useHistory();
+    const userLoggedIn = useSelector(state => state.userLoggedIn);
+    
     const [ cookies ] = useCookies(['userToken'])
 
     const [ key, setKey ] = useState('addPhoto');
@@ -119,8 +125,11 @@ const Dashboard = () => {
     
     // ================UseEffect===========================
     useEffect(()=>{
+        if(!userLoggedIn){
+            history.push("/");
+        }
         fetchBookings(page, amountToFetch);
-    }, [page, amountToFetch])
+    }, [page, amountToFetch, userLoggedIn])
     
     return (
         <Container>

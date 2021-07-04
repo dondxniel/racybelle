@@ -4,7 +4,7 @@ const checkAdminExistence = (req, res, next) => {
     const { email } = req.body;
     Admin.findOne( { email })
     .then(result  => {
-        console.log(result)
+        // console.log(result)
         req.adminExists = (result) ? true : false;
         req.adminThatExists = result;
         next();

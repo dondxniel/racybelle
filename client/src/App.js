@@ -54,7 +54,8 @@ function App() {
             {!userLoggedIn ? <BookAppointment /> : <Redirect to = "/" /> }
           </Route>
           <Route path="/dashboard" strict exact>
-            {userLoggedIn ? <Dashboard /> : <Redirect to = "/" />}
+            {/* {userLoggedIn ? <Dashboard /> : <Redirect to = "/" />} */}
+            <Dashboard />
           </Route>
           <Route path="*" strict exact>
             <NotFound />
