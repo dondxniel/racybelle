@@ -35,7 +35,7 @@ router.post('/add-photo', auth, (req, res) => {
                 res.json({
                     success: false,
                     message: process.env.PHOTO_UPLOAD_ERROR,
-                    // data: err
+                    data: err
                 })
             })
         }
