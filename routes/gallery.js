@@ -57,7 +57,8 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                 if (err) {
                     res.json({
                         success: false,
-                        message: process.env.ERROR_EMPTYING_TEMP
+                        message: process.env.ERROR_EMPTYING_TEMP,
+                        data: err
                     })
                     return;
                 }else{
@@ -79,7 +80,8 @@ router.post('/add-photo-to-temp', auth, (req, res) => {
                         if(err) {        
                             res.json({
                                 success: false,
-                                message: process.env.ERROR_MOVING_FILE
+                                message: process.env.ERROR_MOVING_FILE,
+                                data: err
                             })
                             return;
                         }else{
