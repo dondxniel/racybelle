@@ -44,14 +44,14 @@ const Dashboard = () => {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization' : `${cookies['userToken']}`
-            }
+            }     
         })
         .then(res => {
             setImageSelected(false);
             if(res.data.success){
                 setPreview(res.data.data.fileName);
                 setFile(res.data.data.fileName);
-                console.log(res.data.data)
+                // console.log(res.data.data)
             }else{
                 setError(res.data.message);
             }
