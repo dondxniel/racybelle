@@ -55,6 +55,7 @@ const Dashboard = () => {
             }else{
                 setError(res.data.message);
             }
+            console.log(res.data)
         })
         .catch(err => setError(`Error caught on the client: ${err}`))
     }
