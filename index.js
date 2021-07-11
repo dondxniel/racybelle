@@ -6,7 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const authRoutes = require('./routes/auth');
 const appointmentsRoutes = require('./routes/appointments');
-const galleryRoutes = require('./routes/gallery');
+const galleryRoutes = require('./routes/gallerydrive');
 
 // database connection 
 mongoose.connect(process.env.MONGO_URI, {
