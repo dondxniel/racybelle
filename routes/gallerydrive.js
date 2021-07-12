@@ -7,129 +7,107 @@ const router = express.Router();
 const Photo = require('../models/Photo');
 const auth = require('../middleware/auth');
 const { google } = require('googleapis');
+const stream = require("stream")
 
 // Route to add photos to the Photo.
 router.post('/add-photo', auth, async (req, res) => {
-    // C:/Users/Daniel/Downloads/Vids/Programming Tutorials/photo.jpg
-    const { url } = req.body;
-    const image = new Photo({url});
-    // console.log(url);
-    const source = path.resolve(__dirname, `../client/public/images/temp/${url}`);
-
-    const oauth2Client = new google.auth.OAuth2(
-        process.env.CLIENT_ID,
-        process.env.CLIENT_SECRET,
-        process.env.REDIRECT_URI,
-    )
-
-    oauth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN})
-
-    const drive = google.drive({
-        version: 'v3',
-        auth: oauth2Client
-    })
-
-    try{ 
-        const response = await drive.files.create({
-            requestBody: {
-                name: 'image.jpg',
-                mimeType: 'image/jpg',
-            },
-            media: {
-                mimeType: 'image/jpg',
-                body: fs.createReadStream(source)
-            }
-        })
-        console.log(response.data);
-    }catch(e){
-        console.log(`Error: ${e}`)
-    }
-    
-    /*
-    const dest = path.resolve(__dirname, `../client/public/images/gallery/${url}`);
-    
-    mv(source, dest, err => {
-        if(err){
-            // console.log(err)
-            res.json({
-                success: false,
-                message: process.env.MOVING_TEMP_TO_GALLERY_ERROR,
-                data: err
+    if(req.files !== null){
+        const file = req.files.file;
+        const file_new_name = `${Math.floor( Math.random() * 10000000000)}_${Math.floor( Math.random() * 10000000000)}_${file.name}`;
+        // console.log();
+        if(file.mimetype.split('/')[0] === 'image'){
+            const oauth2Client = new google.auth.OAuth2(
+                process.env.CLIENT_ID,
+                process.env.CLIENT_SECRET,
+                process.env.REDIRECT_URI,
+            )
+        
+            oauth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN})
+        
+            const drive = google.drive({
+                version: 'v3',
+                auth: oauth2Client
             })
-        }else{
-            image.save()
-            .then(photo => {
-                res.json({
-                    success: true,
-                    data: photo
+
+            // create stream
+            const fileStream = new stream.PassThrough();
+            fileStream.end(new Buffer.from(file.data));
+        
+            try{ 
+                const response = await drive.files.create({
+                    requestBody: {
+                        name: file_new_name,
+                        mimeType: file.mimetype,
+                    },
+                    media: {
+                        mimeType: file.mimetype,
+                        body: fileStream
+                    }
                 })
-            })
-            .catch(err => {
+                res.json({
+                    success: true
+                })
+            }catch(e){
                 res.json({
                     success: false,
-                    message: process.env.PHOTO_UPLOAD_ERROR,
-                    data: err
+                    message: 'Error uploading file.',
+                    data: e
                 })
+            }
+        }else{
+            res.json({
+                success: false,
+                message: process.env.UNSUPPORTED_FILE_TYPE,
             })
         }
-    })
-    */
+    }else{
+        res.json({
+            success: false,
+            message: process.env.NO_FILE_UPLOADED,
+        })
+    }
 })
 
 // Route to add photos to the temp folder of the gallery so that the admin can see the image he/she selected.
-router.post('/add-photo-to-temp', auth, (req, res) => {
-    const tempFolder = path.resolve(__dirname, path.join('../client', 'public', 'images', 'temp'));
+router.post('/add-photo-to-temp', auth, async (req, res) => {
     // console.log(tempFolder);
     if(req.files !== null){
         const file = req.files.file;
         const file_new_name = `${Math.floor( Math.random() * 10000000000)}_${Math.floor( Math.random() * 10000000000)}_${file.name}`;
         // console.log();
         if(file.mimetype.split('/')[0] === 'image'){
-            // Code to empty folder    
-            fs.readdir(tempFolder, (err, files) => {
-                if (err) {
-                    res.json({
-                        success: false,
-                        message: process.env.ERROR_EMPTYING_TEMP,
-                        data: err
-                    })
-                    return;
-                }else{
-                    files = files.filter(file => file !== 'default.png');
-                    if(files.length > 0){
-                        let errInd = 0;
-                        for (const file of files) {
-                            fs.unlink(path.join(tempFolder, file), err => {
-                                if (err) errInd = 1;
-                            });
-                        }
-                        (errInd === 1) && res.json({
-                            success: false,
-                            message: process.env.ERROR_EMPTYING_TEMP
-                        });
+            const oauth2Client = new google.auth.OAuth2(
+                process.env.CLIENT_ID,
+                process.env.CLIENT_SECRET,
+                process.env.REDIRECT_URI,
+            )
+        
+            oauth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN})
+        
+            const drive = google.drive({
+                version: 'v3',
+                auth: oauth2Client
+            })
+
+            // create stream
+            const fileStream = new stream.PassThrough();
+            fileStream.end(new Buffer.alloc(file.data));
+        
+            try{ 
+                const response = await drive.files.create({
+                    requestBody: {
+                        name: file_new_name,
+                        mimeType: file.mimetype,
+                    },
+                    media: {
+                        mimeType: file.mimetype,
+                        body: fileStream
                     }
-                    const dest = path.join(tempFolder, file_new_name); 
-                    file.mv(dest, err => {
-                        if(err) {        
-                            res.json({
-                                success: false,
-                                message: process.env.ERROR_MOVING_FILE,
-                                data: err
-                            })
-                            return;
-                        }else{
-                            res.json({
-                                success: true,
-                                data: {
-                                    fileName: file_new_name,
-                                    dest: dest
-                                }
-                            })
-                            return;
-                        }
-                    })
-                } 
-            });
+                })
+                console.log(response.data);
+            }catch(e){
+                console.log(`Error: ${e}`)
+            }
         }else{
             res.json({
                 success: false,

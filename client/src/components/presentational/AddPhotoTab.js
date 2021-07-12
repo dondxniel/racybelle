@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Image } from 'react-bootstrap';
 import { FaCheckCircle } from 'react-icons/fa';
 import Loading from './Loading';
 
-const AddPhotoTab = ({ error, imageSelected, preview, handleSelectImage, handleSubmit, imageUploaded, savingImage }) => {
+const AddPhotoTab = ({ error, handleSelectImage, handleSubmit, imageUploaded, savingImage }) => {
 
     return (
         <Container className = "my-4">
@@ -37,7 +37,7 @@ const AddPhotoTab = ({ error, imageSelected, preview, handleSelectImage, handleS
                         </Form.Group>
                     </Form>
                 </Col>
-                <Col md = {6} className = "text-center">
+                {/* <Col md = {6} className = "text-center">
                 {    
                     imageSelected ?
                         <>
@@ -50,7 +50,7 @@ const AddPhotoTab = ({ error, imageSelected, preview, handleSelectImage, handleS
                         :
                             <Image src = {`./images/temp/${preview}`} fluid rounded />
                 } 
-                </Col>
+                </Col> */}
             </Row>
             }
         </Container>

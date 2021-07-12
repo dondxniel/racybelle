@@ -19,9 +19,8 @@ const Dashboard = () => {
     
     // AddPhotoTab states
     const [ error, setError ] = useState('');
+    // const [ imageSelected, setImageSelected ] = useState(false);
     const [ file, setFile ] = useState({});
-    const [ imageSelected, setImageSelected ] = useState(false);
-    const [ preview, setPreview ] = useState('default.png');
     const [ imageUploaded, setImageUploaded ] = useState(false);
     const [ savingImage, setSavingImage ] = useState(false);
 
@@ -34,60 +33,91 @@ const Dashboard = () => {
     
     // ===================AddPhotoTab functions========================
     // function that runs after image selection 
+
     const handleSelectImage = e => {
-        setImageSelected(true);
+        setFile(e.target.files[0]);
+    }
+    
+    const handleSubmit = e => {
+        e.preventDefault();
 
+        setSavingImage(true)
+        
         const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+        formData.append('file', file);
 
-        axios.post(`${process.env.REACT_APP_BACKEND_HOST}/api/add-photo-to-temp`, formData, {
+        axios.post(`${process.env.REACT_APP_BACKEND_HOST}/api/add-photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization' : `${cookies['userToken']}`
             }     
         })
         .then(res => {
-            setImageSelected(false);
             if(res.data.success){
-                setPreview(res.data.data.fileName);
-                setFile(res.data.data.fileName);
-                // console.log(res.data.data)
+                setImageUploaded(true);
             }else{
                 setError(res.data.message);
             }
             console.log(res.data)
         })
         .catch(err => setError(`Error caught on the client: ${err}`))
-    }
-    // Function that runs after form has been submitted
-    const handleSubmit = e => {
-        e.preventDefault();
-        setSavingImage(true)
-        
-        axios({
-            method: "POST",
-            url: `${process.env.REACT_APP_BACKEND_HOST}/api/add-photo`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : `${cookies['userToken']}`
-            },
-            data: {
-                url : file
-            }
-        })
-        .then(res => {
-            if(res.data.success){
-                setImageUploaded(true);
-            }else{
-                setError(`${res.data.message}`);
-            }
-        })
-        .catch(err => setError(`Error caught on the client: ${err}`))
         
     }
+    // const handleSelectImage = e => {
+    //     setImageSelected(true);
+
+    //     const formData = new FormData();
+    //     formData.append('file', e.target.files[0]);
+
+    //     axios.post(`${process.env.REACT_APP_BACKEND_HOST}/api/add-photo-to-temp`, formData, {
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data',
+    //             'Authorization' : `${cookies['userToken']}`
+    //         }     
+    //     })
+    //     .then(res => {
+    //         setImageSelected(false);
+    //         if(res.data.success){
+    //             setPreview(res.data.data.fileName);
+    //             setFile(res.data.data.fileName);
+    //             // console.log(res.data.data)
+    //         }else{
+    //             setError(res.data.message);
+    //         }
+    //         console.log(res.data)
+    //     })
+    //     .catch(err => setError(`Error caught on the client: ${err}`))
+    // }
+    // // Function that runs after form has been submitted
+    // const handleSubmit = e => {
+    //     e.preventDefault();
+    //     setSavingImage(true)
+        
+    //     axios({
+    //         method: "POST",
+    //         url: `${process.env.REACT_APP_BACKEND_HOST}/api/add-photo`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization' : `${cookies['userToken']}`
+    //         },
+    //         data: {
+    //             url : file
+    //         }
+    //     })
+    //     .then(res => {
+    //         if(res.data.success){
+    //             setImageUploaded(true);
+    //         }else{
+    //             setError(`${res.data.message}`);
+    //         }
+    //     })
+    //     .catch(err => setError(`Error caught on the client: ${err}`))
+        
+    // }
     
     // ================ViewBookingsTab functions====================
     // function to handle pagination
+    
     const handlePaginate = n => {
         if(n>0){
             console.log(page)
@@ -144,8 +174,6 @@ const Dashboard = () => {
                     <Tab eventKey = "addPhoto" title = "Add photo to portfolio.">
                         <AddPhotoTab
                             error = {error}
-                            imageSelected = {imageSelected}
-                            preview = {preview}
                             handleSelectImage = {handleSelectImage}
                             handleSubmit = {handleSubmit}
                             imageUploaded = {imageUploaded}
