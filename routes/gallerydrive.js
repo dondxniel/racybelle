@@ -74,7 +74,7 @@ router.post('/add-photo', auth, async (req, res) => {
             .catch(err => {
                 res.json({
                     success: false,
-                    message: 'Error uploading file.',
+                    message: `Error uploading file ${err}.`,
                     data: err
                 })
             })
