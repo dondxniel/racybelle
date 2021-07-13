@@ -58,62 +58,12 @@ const Dashboard = () => {
             }else{
                 setError(res.data.message);
             }
-            console.log(res.data)
+            setSavingImage(false)
+            // console.log(res.data)
         })
         .catch(err => setError(`Error caught on the client: ${err}`))
         
     }
-    // const handleSelectImage = e => {
-    //     setImageSelected(true);
-
-    //     const formData = new FormData();
-    //     formData.append('file', e.target.files[0]);
-
-    //     axios.post(`${process.env.REACT_APP_BACKEND_HOST}/api/add-photo-to-temp`, formData, {
-    //         headers: {
-    //             'Content-Type': 'multipart/form-data',
-    //             'Authorization' : `${cookies['userToken']}`
-    //         }     
-    //     })
-    //     .then(res => {
-    //         setImageSelected(false);
-    //         if(res.data.success){
-    //             setPreview(res.data.data.fileName);
-    //             setFile(res.data.data.fileName);
-    //             // console.log(res.data.data)
-    //         }else{
-    //             setError(res.data.message);
-    //         }
-    //         console.log(res.data)
-    //     })
-    //     .catch(err => setError(`Error caught on the client: ${err}`))
-    // }
-    // // Function that runs after form has been submitted
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     setSavingImage(true)
-        
-    //     axios({
-    //         method: "POST",
-    //         url: `${process.env.REACT_APP_BACKEND_HOST}/api/add-photo`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization' : `${cookies['userToken']}`
-    //         },
-    //         data: {
-    //             url : file
-    //         }
-    //     })
-    //     .then(res => {
-    //         if(res.data.success){
-    //             setImageUploaded(true);
-    //         }else{
-    //             setError(`${res.data.message}`);
-    //         }
-    //     })
-    //     .catch(err => setError(`Error caught on the client: ${err}`))
-        
-    // }
     
     // ================ViewBookingsTab functions====================
     // function to handle pagination
@@ -161,7 +111,7 @@ const Dashboard = () => {
             history.push("/");
         }
         fetchBookings(page, amountToFetch);
-    }, [page, amountToFetch, userLoggedIn])
+    }, [page, amountToFetch, userLoggedIn, fetchBookings, history])
     
     return (
         <Container>

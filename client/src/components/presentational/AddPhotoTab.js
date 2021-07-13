@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, Image } from 'react-bootstrap';
+import { Container, Row, Col, Form, Card } from 'react-bootstrap';
 import { FaCheckCircle } from 'react-icons/fa';
 import Loading from './Loading';
 
@@ -14,7 +14,8 @@ const AddPhotoTab = ({ error, handleSelectImage, handleSubmit, imageUploaded, sa
             </Row>
             :
             <Row>
-                <Col md = {6}>
+                <Col>
+                    {(error !== '') && <Card className = "py-3 text-danger text-center">{error}</Card>}
                     <Form onSubmit = {handleSubmit}>
                         <Form.Group className = 'my-3 justify-content-center text-center'>
                             <Form.Label>
@@ -37,20 +38,6 @@ const AddPhotoTab = ({ error, handleSelectImage, handleSubmit, imageUploaded, sa
                         </Form.Group>
                     </Form>
                 </Col>
-                {/* <Col md = {6} className = "text-center">
-                {    
-                    imageSelected ?
-                        <>
-                            <p className = "py-3 text-success">Loading image...</p>
-                            <Loading variant = "large" />
-                        </>
-                    :
-                        (error !== '')?
-                            <div className = "py-3 text-danger">{error}</div>
-                        :
-                            <Image src = {`./images/temp/${preview}`} fluid rounded />
-                } 
-                </Col> */}
             </Row>
             }
         </Container>

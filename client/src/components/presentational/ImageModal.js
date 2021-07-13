@@ -6,7 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 const ImageModal = ({children, image}) => {
     const Image = styled.div`
         border: none;
-        background-image: url('./images/gallery/${image}');
+        background-image: url('https://drive.google.com/uc?id=${image}&export=download);
         background-size: cover;
         background-position: center;
         height: 250px;
@@ -40,7 +40,7 @@ const ImageModal = ({children, image}) => {
                 onHide = {handleHide}
                 centered = {true}
             >
-                <img src={`./images/gallery/${image}`} alt="" />
+                <img src={`https://drive.google.com/uc?id=${image}&export=download`} alt="" />
                 <div className="close-container text-center">
                     <button className = "image-close-button text-light" onClick = {handleHide} ><FaTimes /></button>
                 </div>
