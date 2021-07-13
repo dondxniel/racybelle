@@ -65,10 +65,10 @@ router.post('/add-photo', auth, async (req, res) => {
                     body: fileStream
                 }
             })
-            .then(res => {
+            .then(response => {
                 res.json({
                     success: true,
-                    data: res
+                    data: response
                 })
             })
             .catch(err => {
