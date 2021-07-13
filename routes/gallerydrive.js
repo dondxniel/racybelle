@@ -32,7 +32,7 @@ router.post('/add-photo', auth, async (req, res) => {
             // create stream
             const fileStream = new stream.PassThrough();
             fileStream.end(new Buffer.from(file.data));
-        
+            /*
             try{ 
                 const response = await drive.files.create({
                     requestBody: {
@@ -54,6 +54,30 @@ router.post('/add-photo', auth, async (req, res) => {
                     data: e
                 })
             }
+            */
+            drive.files.create({
+                requestBody: {
+                    name: file_new_name,
+                    mimeType: file.mimetype,
+                },
+                media: {
+                    mimeType: file.mimetype,
+                    body: fileStream
+                }
+            })
+            .then(res => {
+                res.json({
+                    success: true,
+                    data: res
+                })
+            })
+            .catch(err => {
+                res.json({
+                    success: false,
+                    message: 'Error uploading file.',
+                    data: err
+                })
+            })
         }else{
             res.json({
                 success: false,
