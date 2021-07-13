@@ -49,13 +49,13 @@ router.post('/add-photo', auth, async (req, res) => {
                 .then(photo => {
                     res.json({
                         success: true,
-                        data: response
+                        data: photo
                     })
                 })
                 .catch(err => {
                     res.json({
                         success: false,
-                        message: process.env.PHOTO_UPLOAD_ERROR,
+                        message: `${process.env.PHOTO_UPLOAD_ERROR}: ${err}`,
                         data: err
                     })
                 })
