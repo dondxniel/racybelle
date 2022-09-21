@@ -13,6 +13,7 @@ body {
 		Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
 		sans-serif;
 }
+/* Hero curve */
 .custom-shape-divider-bottom-1663720595 {
 	margin-top: auto;
 	width: 100%;
@@ -30,4 +31,21 @@ body {
 .custom-shape-divider-bottom-1663720595 .shape-fill {
 	fill: #ffffff;
 	border-bottom: 5px solid #fff;
+}
+
+/* Section 2 top curve */
+.custom-shape-divider-top-1663781608 {
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+}
+
+.custom-shape-divider-top-1663781608 svg {
+	display: block;
+	width: calc(100% + 1.3px);
+	height: 48px;
+}
+
+.custom-shape-divider-top-1663781608 .shape-fill {
+	fill: #ffffff;
 }
