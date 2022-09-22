@@ -9,17 +9,26 @@ function Navbar() {
 					{/* Logo */}
 					<div>Racybelle</div>
 					{/* Nav Links */}
-					<div className="flex flex-1 justify-center align-center">
-						<div className="mx-10">
-							<Link href="/">
-								<span className="text-black hover:cursor-pointer">
-									Home
-								</span>
-							</Link>
+					<div className="hidden md:flex flex-1 justify-center align-center">
+						<div className="mx-10 flex flex-row flex-1 justify-end align-center">
+							<div className="px-3 flex flex-column justify-center">
+								<Link href="/">
+									<span className="text-black hover:cursor-pointer">
+										Home
+									</span>
+								</Link>
+							</div>
+							<div className="px-3 flex flex-column justify-center">
+								<Link href="/portfolio">
+									<span className="text-black hover:cursor-pointer">
+										Portfolio
+									</span>
+								</Link>
+							</div>
 						</div>
 					</div>
 					{/* Login button */}
-					<div>
+					<div className="ml-auto">
 						<Link href="/login">
 							<button className="bg-black text-white px-5 py-1">
 								Login

@@ -10,7 +10,10 @@ function Hero() {
 		<div className="h-[90vh] bg-[url('/assets/images/hero-bg.svg')] bg-center bg-cover bg-no-repeat flex flex-column">
 			<Container className="flex-1 flex flex-column justify-center">
 				<Row>
-					<Col md={5} className="ml-auto">
+					<Col
+						md={5}
+						className="ml-auto md:bg-transparent bg-[rgba(255,255,255,0.7)] py-5"
+					>
 						<div className="flex flex-row align-center">
 							<div className="text-xl mr-3">Lorem Ipsum</div>
 							<div className="flex flex-row align-center flex-1">
